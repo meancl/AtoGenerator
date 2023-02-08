@@ -1,0 +1,3 @@
+다중입력 모델이 필요한 경우 Sequential로는 안되니 Model 사용
+    https://frhyme.github.io/machine-learning/a_model_in_keras/
+    
