@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import sqlalchemy as db
-from mylib.orm import scaledatasdict
 from sqlalchemy import select, insert, update
 from sqlalchemy import desc
 
