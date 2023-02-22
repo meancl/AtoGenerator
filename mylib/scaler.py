@@ -17,7 +17,7 @@ class ModelTester:
 
 
     def setNpData(self, np_data):
-        self.np_data = np_data
+        self.np_data = np_data.copy()
 
     def setScaler(self, scale_method:str):
             self.scale_method = scale_method
