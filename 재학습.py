@@ -9,6 +9,7 @@ from mylib.scaler import *
 from mylib.featurenames import *
 from mylib.modelpostfix import *
 from mylib.onnxtransformer import *
+from mylib.cleaner import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -39,8 +40,8 @@ y_condition = (br['fMaxPowerAfterBuyWhile10'] >= 0.04)
 y = np.where(y_condition, 1, 0)
 
 ######### 필수 !!!! ###############
-reusable_model_name = 'test_Robust_acc_max'
-model_name = 'reuse_test_v2'
+reusable_model_name = 'gpu_test_Robust_acc_max'
+model_name = 'reuse_gpu_test'
 
 ''' set scaler '''
 
@@ -90,7 +91,7 @@ if not compile_pass:
 
 
 ''' set epoch and batch size '''
-EPOCH = 1
+EPOCH = 2
 BATCH_SIZE = 64
 
 ''' make check points '''
@@ -120,3 +121,4 @@ history = model.fit(X_train, y_train,
 
 ''' convert h5 to onnx '''
 transformToOnnx(model_name_list)
+clean()

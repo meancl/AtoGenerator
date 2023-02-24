@@ -8,6 +8,7 @@ from mylib.scaler import *
 from mylib.featurenames import *
 from mylib.modelpostfix import *
 from mylib.onnxtransformer import *
+from mylib.cleaner import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -51,7 +52,7 @@ X = modelTester.np_data
 
 
 ''' set prefix model name '''
-model_name = 'test'
+model_name = 'gpu_test'
 call_back_last_filename = model_name + '_' + scale_method + '_recent'
 call_back_acc_max_filename = model_name + '_' + scale_method + '_acc_max' 
 call_back_loss_min_filename = model_name + '_' + scale_method + '_lss_min'
@@ -132,3 +133,4 @@ history = model.fit(X_train, y_train,
 ''' convert h5 to onnx '''
 transformToOnnx(model_name_list)
 
+clean()
