@@ -1,2 +1,4 @@
-from tensorflow.python.client import device_lib
-print(device_lib.list_local_devices())
+import os.path
+
+
+print(os.listdir(r'C:/Users/MJ/source/repos/MJTradier_AI'))

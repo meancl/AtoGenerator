@@ -7,6 +7,7 @@ import random
 from mylib.scaler import *
 from mylib.featurenames import *
 from mylib.modelpostfix import *
+from mylib.onnxtransformer import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -97,8 +98,8 @@ model = Model(inputs=main_input, outputs=main_output)
 model.summary()
 
 ''' set epoch and batch size '''
-EPOCH = 200
-BATCH_SIZE = 70
+EPOCH = 1
+BATCH_SIZE = 64
 
 ''' set model compile method '''
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -129,13 +130,5 @@ history = model.fit(X_train, y_train,
      )
 
 ''' convert h5 to onnx '''
-for mn in model_name_list:
-    # h5 to pb
-    
-    model_convert = tf.keras.models.load_model(h5_path + mn + h5, compile=False)
-    model_convert.save(tmp_model_path, save_format="tf")
-
-    # pb to onnx 
-    os.system('python -m tf2onnx.convert --saved-model ' +  tmp_model_path + ' --output ' + onnx_path + mn + onnx + ' --opset 13')
-
+transformToOnnx(model_name_list)
 

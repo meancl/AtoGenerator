@@ -13,11 +13,10 @@ ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
 engine = create_engine('mysql://meancl:1234@221.149.119.60:2023/mjtradierdb')
 conn = engine.connect()
 # ftp.upload("fMax30_5_v1_Robust_acc_max.h5", './h5/', '/h5/')
-t_model_name = ['fMax10_40_Standard_last',
-                'fMax10_40_Standard_ac_max', 'fMax10_40_Robust_ls_min', 'fMax10_40_Robust_last']
+t_model_name = ['test_Robust_recent', 'test_Robust_acc_max', 'test_Robust_lss_min']
 ''' get db data '''
 br_full_data = pd.read_sql_table('buyreports', conn)
-table = db.Table('scaledatasdict', db.MetaData(), autoload=True, autoload_with=engine)
+
 ''' db data filter '''
 get_filter = ( br_full_data['isAllBuyed'] == 1) & ( br_full_data['isAllSelled'] == 1) 
 # extract_filter = (br_full_data['dTradeTime'] >= datetime.datetime(2023, 2, 16))
@@ -55,6 +54,7 @@ for idx, md in enumerate(models):
     pred = md.predict(x_datas[idx])
     y_predict.append(pred)
 
+# test
 one = 0
 zero = 0
 
