@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import sqlalchemy as db
+from sqlalchemy import text
 from sqlalchemy import select, insert, update
 from sqlalchemy import desc
 
@@ -64,12 +65,10 @@ class ModelTester:
                     d1 = 1
                     d2 = 0 
                 
-                table = db.Table('scaledatasdict', db.MetaData(), autoload=True, autoload_with=self.engine)
-                query = db.insert(table).values( {'dTime': today, 'sScaleMethod':scaleMethod, 'sVariableName':sVar, 
-                                'sModelName':sModel, 'fD0':d0, 'fD1':d1, 'fD2':d2, 'nSeq':idx})
-
-                result_proxy = self.conn.execute(query)
+                query = f"""insert into scaledatasdict values('{today}', '{scaleMethod}', '{sVar}', '{sModel}', {d0}, {d1}, {d2}, {idx});"""
+                result_proxy = self.conn.execute(text(query))
                 result_proxy.close()
+                
             print('put scale to ', sModel, ' ends')
         except Exception as ex:
             print(ex)
