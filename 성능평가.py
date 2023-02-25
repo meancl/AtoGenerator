@@ -9,6 +9,8 @@ from mylib.featurenames import *
 import numpy as np
 from mylib.cleaner import *
 from tensorflow.python.client import device_lib
+import onnx
+from onnx2keras import onnx_to_keras
 
 print(device_lib.list_local_devices())
 
@@ -17,7 +19,7 @@ ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
 engine = create_engine('mysql://meancl:1234@221.149.119.60:2023/mjtradierdb')
 conn = engine.connect()
 # ftp.upload("fMax30_5_v1_Robust_acc_max.h5", './h5/', '/h5/')
-t_model_name = ['reuse_gpu_test_Robust_lss_min', 'reuse_gpu_test_Robust_acc_max', 'reuse_gpu_test_Robust_recent']
+t_model_name = ['test_v3_Robust_acc_max', 'test_v3_Robust_lss_min', 'test_v3_Robust_recent']
 ''' get db data '''
 br_full_data = pd.read_sql_table('buyreports', conn)
 
@@ -44,12 +46,14 @@ y_predict = []
 
 modelTester = ModelTester(engine, conn)
 for i in t_model_name:
-    ftp.download(i + h5, project_absolute_path + '/h5/', '/h5/')
+    ftp.download(i + onnx_, onnx_path, '/onnx/')
     modelTester.setNpData(X)
-    modelTester.matchOldScaler(i + onnx)
+    modelTester.matchOldScaler(i + onnx_)
     modelTester.fitScale()
     x_datas.append(modelTester.np_data)
-    model_tmp = tf.keras.models.load_model(h5_path + i + h5, compile=True)
+    onnx_model = onnx.load(onnx_path + i + onnx_)
+    model_tmp = onnx_to_keras(onnx_model, ['input'])
+    #model_tmp = tf.keras.models.load_model(h5_path + i + h5, compile=True)
     models.append(model_tmp)
 
 y_test =y

@@ -9,12 +9,14 @@ from mylib.featurenames import *
 from mylib.modelpostfix import *
 from mylib.onnxtransformer import *
 from mylib.cleaner import *
+from mylib.quantization import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization, Activation
 from keras.callbacks import ModelCheckpoint
 from tensorflow.python.client import device_lib
+
 
 print(device_lib.list_local_devices())
 
@@ -52,7 +54,7 @@ X = modelTester.np_data
 
 
 ''' set prefix model name '''
-model_name = 'gpu_test'
+model_name = 'test_v4'
 call_back_last_filename = model_name + '_' + scale_method + '_recent'
 call_back_acc_max_filename = model_name + '_' + scale_method + '_acc_max' 
 call_back_loss_min_filename = model_name + '_' + scale_method + '_lss_min'
@@ -63,7 +65,7 @@ model_name_list = [call_back_last_filename, call_back_acc_max_filename, call_bac
 for mn in model_name_list:
     modelTester.writeScalerToDB(
                     feature_names=feature_names_102,
-                    model_name=mn+onnx,
+                    model_name=mn+onnx_,
                     )
 
 ''' make random seed '''
@@ -106,19 +108,19 @@ BATCH_SIZE = 64
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 ''' make check points '''
-checkpoint_acc = ModelCheckpoint(h5_path + call_back_acc_max_filename + h5,
+checkpoint_acc = ModelCheckpoint(h5_path + call_back_acc_max_filename + h5_,
                             monitor='val_accuracy',
                             verbose=1,
                             save_best_only=True,
                             mode='max')
 
-checkpoint_loss = ModelCheckpoint(h5_path + call_back_loss_min_filename + h5,
+checkpoint_loss = ModelCheckpoint(h5_path + call_back_loss_min_filename + h5_,
                             monitor='val_loss',
                             verbose=1,
                             save_best_only=True,
                             mode='min')
 
-checkpoint_last = ModelCheckpoint(h5_path + call_back_last_filename + h5,
+checkpoint_last = ModelCheckpoint(h5_path + call_back_last_filename + h5_,
                             verbose=1,
                             save_freq = 'epoch'
                             )
@@ -132,5 +134,6 @@ history = model.fit(X_train, y_train,
 
 ''' convert h5 to onnx '''
 transformToOnnx(model_name_list)
+quantize_onnx_model_list(model_name_list)
 
-clean()
+# clean()

@@ -10,6 +10,7 @@ from mylib.featurenames import *
 from mylib.modelpostfix import *
 from mylib.onnxtransformer import *
 from mylib.cleaner import *
+from mylib.quantization import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -50,7 +51,7 @@ model_name = 'reuse_gpu_test'
 
 modelTester = ModelTester(engine, conn)
 modelTester.setNpData(X)
-modelTester.matchOldScaler(reusable_model_name + onnx)
+modelTester.matchOldScaler(reusable_model_name + onnx_)
 modelTester.fitScale()
 X = modelTester.np_data
 
@@ -66,7 +67,7 @@ model_name_list = [call_back_last_filename, call_back_acc_max_filename, call_bac
 for mn in model_name_list:
     modelTester.writeScalerToDB(
                     feature_names=feature_names_102,
-                    model_name=mn+onnx,
+                    model_name=mn+onnx_,
                     )
     
 ''' make random seed '''
@@ -85,7 +86,7 @@ print('y_test  : ', y_test.shape)
 
 # Reusable 
 compile_pass = True
-model = tf.keras.models.load_model(h5_path + reusable_model_name + h5, compile=compile_pass) # compile=True면 별도의 compile 작업이 필요없다
+model = tf.keras.models.load_model(h5_path + reusable_model_name + h5_, compile=compile_pass) # compile=True면 별도의 compile 작업이 필요없다
 model.summary()
 
 ''' set model compile method '''
@@ -98,19 +99,19 @@ EPOCH = 2
 BATCH_SIZE = 64
 
 ''' make check points '''
-checkpoint_acc = ModelCheckpoint(h5_path + call_back_acc_max_filename + h5,
+checkpoint_acc = ModelCheckpoint(h5_path + call_back_acc_max_filename + h5_,
                             monitor='val_accuracy',
                             verbose=1,
                             save_best_only=True,
                             mode='max')
 
-checkpoint_loss = ModelCheckpoint(h5_path + call_back_loss_min_filename + h5,
+checkpoint_loss = ModelCheckpoint(h5_path + call_back_loss_min_filename + h5_,
                             monitor='val_loss',
                             verbose=1,
                             save_best_only=True,
                             mode='min')
 
-checkpoint_last = ModelCheckpoint(h5_path + call_back_last_filename + h5,
+checkpoint_last = ModelCheckpoint(h5_path + call_back_last_filename + h5_,
                             verbose=1,
                             save_freq = 'epoch'
                             )
@@ -124,4 +125,6 @@ history = model.fit(X_train, y_train,
 
 ''' convert h5 to onnx '''
 transformToOnnx(model_name_list)
+quantize_onnx_model_list(model_name_list)
+
 clean()
