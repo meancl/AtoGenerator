@@ -15,6 +15,9 @@ from sklearn.model_selection import train_test_split
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization, Activation
 from keras.callbacks import ModelCheckpoint
+from tensorflow.python.client import device_lib
+
+print(device_lib.list_local_devices())
 
 engine = create_engine('mysql://meancl:1234@221.149.119.60:2023/mjtradierdb')
 conn = engine.connect()

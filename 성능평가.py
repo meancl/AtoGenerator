@@ -8,7 +8,9 @@ import pandas as pd
 from mylib.featurenames import *
 import numpy as np
 from mylib.cleaner import *
+from tensorflow.python.client import device_lib
 
+print(device_lib.list_local_devices())
 
 ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
 
