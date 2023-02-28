@@ -23,4 +23,4 @@ def clean(data_list=None):
             os.remove(project_absolute_path + '/onnx/' + filename)
     else:
         for filename in data_list:
-            os.remove(project_absolute_path + '/h5/' + filename + h5)
+            os.remove(project_absolute_path + '/onnx/' + filename + onnx_)

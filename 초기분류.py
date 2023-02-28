@@ -28,9 +28,7 @@ br_full_data = pd.read_sql_table('buyreports', conn)
 
 ''' db data filter '''
 get_filter = ( br_full_data['isAllBuyed'] == 1) & ( br_full_data['isAllSelled'] == 1) 
-# extract_filter = (br_full_data['dTradeTime'] >= datetime.datetime(2023, 2, 16))
 br = br_full_data[get_filter]
-# br_extract = br_full_data[extract_filter]
 
 ''' get features name'''
 feature_names_102 =  f_name_102
@@ -54,7 +52,7 @@ X = modelTester.np_data
 
 
 ''' set prefix model name '''
-model_name = 'test_v4'
+model_name = 'test_v7'
 call_back_last_filename = model_name + '_' + scale_method + '_recent'
 call_back_acc_max_filename = model_name + '_' + scale_method + '_acc_max' 
 call_back_loss_min_filename = model_name + '_' + scale_method + '_lss_min'
@@ -101,8 +99,8 @@ model = Model(inputs=main_input, outputs=main_output)
 model.summary()
 
 ''' set epoch and batch size '''
-EPOCH = 1
-BATCH_SIZE = 64
+EPOCH = 6
+BATCH_SIZE = 200
 
 ''' set model compile method '''
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -136,4 +134,4 @@ history = model.fit(X_train, y_train,
 transformToOnnx(model_name_list)
 quantize_onnx_model_list(model_name_list)
 
-# clean()
+clean()

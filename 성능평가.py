@@ -9,17 +9,17 @@ from mylib.featurenames import *
 import numpy as np
 from mylib.cleaner import *
 from tensorflow.python.client import device_lib
-import onnx
+import onnxruntime as ort
 from onnx2keras import onnx_to_keras
 
 print(device_lib.list_local_devices())
 
-ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
+
 
 engine = create_engine('mysql://meancl:1234@221.149.119.60:2023/mjtradierdb')
 conn = engine.connect()
 # ftp.upload("fMax30_5_v1_Robust_acc_max.h5", './h5/', '/h5/')
-t_model_name = ['test_v3_Robust_acc_max', 'test_v3_Robust_lss_min', 'test_v3_Robust_recent']
+t_model_name = ['test_v5_Robust_acc_max', 'test_v5_Robust_lss_min', 'test_v5_Robust_recent']
 ''' get db data '''
 br_full_data = pd.read_sql_table('buyreports', conn)
 
@@ -44,6 +44,7 @@ x_datas = []
 models = []
 y_predict = []
 
+ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
 modelTester = ModelTester(engine, conn)
 for i in t_model_name:
     ftp.download(i + onnx_, onnx_path, '/onnx/')
@@ -51,16 +52,15 @@ for i in t_model_name:
     modelTester.matchOldScaler(i + onnx_)
     modelTester.fitScale()
     x_datas.append(modelTester.np_data)
-    onnx_model = onnx.load(onnx_path + i + onnx_)
-    model_tmp = onnx_to_keras(onnx_model, ['input'])
-    #model_tmp = tf.keras.models.load_model(h5_path + i + h5, compile=True)
-    models.append(model_tmp)
+    ort_sess = ort.InferenceSession(onnx_path + i + onnx_)
+    models.append(ort_sess)
 
 y_test =y
 
 for idx, md in enumerate(models):
-    pred = md.predict(x_datas[idx])
-    y_predict.append(pred)
+    # pred = md.predict(x_datas[idx])
+    pred = md.run(['output'], {'input' : x_datas[idx]})
+    y_predict.append(pred[0])
 
 # test
 one = 0

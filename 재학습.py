@@ -28,9 +28,7 @@ br_full_data = pd.read_sql_table('buyreports', conn)
 
 ''' db data filter '''
 get_filter = ( br_full_data['isAllBuyed'] == 1) & ( br_full_data['isAllSelled'] == 1)
-# extract_filter = (br_full_data['dTradeTime'] >= datetime.datetime(2023, 2, 16))
 br = br_full_data[get_filter]
-# br_extract = br_full_data[extract_filter]
 
 ''' get features name'''
 feature_names_102 =  f_name_102
@@ -44,12 +42,14 @@ y_condition = (br['fMaxPowerAfterBuyWhile10'] >= 0.04)
 y = np.where(y_condition, 1, 0)
 
 ######### 필수 !!!! ###############
-reusable_model_name = 'gpu_test_Robust_acc_max'
+reusable_model_name = 'gpu_test_Robust_recent'
 model_name = 'reuse_gpu_test'
 
 ''' set scaler '''
 
 modelTester = ModelTester(engine, conn)
+ftp = FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
+ftp.download(reusable_model_name + h5_, h5_path, '/h5/')
 modelTester.setNpData(X)
 modelTester.matchOldScaler(reusable_model_name + onnx_)
 modelTester.fitScale()
@@ -95,7 +95,7 @@ if not compile_pass:
 
 
 ''' set epoch and batch size '''
-EPOCH = 2
+EPOCH = 1
 BATCH_SIZE = 64
 
 ''' make check points '''
