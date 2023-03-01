@@ -9,7 +9,7 @@ from mylib.featurenames import *
 from mylib.modelpostfix import *
 from mylib.onnxtransformer import *
 from mylib.cleaner import *
-from mylib.quantization import *
+# from mylib.quantization import *
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from keras.models import Model
@@ -42,7 +42,7 @@ y_condition = (br['fMaxPowerAfterBuyWhile10'] >= 0.04)
 y = np.where(y_condition, 1, 0)
 
 ''' set scaler '''
-scale_method = ROBUST
+scale_method = STANDARD
 
 modelTester = ModelTester(engine, conn)
 modelTester.setNpData(X)
@@ -52,10 +52,10 @@ X = modelTester.np_data
 
 
 ''' set prefix model name '''
-model_name = 'test_v7'
-call_back_last_filename = model_name + '_' + scale_method + '_recent'
-call_back_acc_max_filename = model_name + '_' + scale_method + '_acc_max' 
-call_back_loss_min_filename = model_name + '_' + scale_method + '_lss_min'
+model_name = 'fMax30_004_v3'
+call_back_last_filename = model_name + '_cls_' + scale_method + '_recent'
+call_back_acc_max_filename = model_name + '_cls_' + scale_method + '_acc_max' 
+call_back_loss_min_filename = model_name + '_cls_' + scale_method + '_lss_min'
 
 
 ''' write scale data to db '''
@@ -85,21 +85,16 @@ print('y_test  : ', y_test.shape)
 nInputDim = feature_size
 nOutputDim = 1
 main_input = Input(shape=(nInputDim), name='input')
-x = Dense(512, activation='relu')(main_input)
-x = Dense(512, activation='relu')(x)
+x = Dense(1024, activation='relu')(main_input)
+x = Dense(2048, activation='relu')(x)
+x = Dense(2048, activation='relu')(x)
 x = Dense(1024, activation='relu')(x)
-x = Dense(1024, activation='relu')(x)
-x = Dense(1024, activation='relu')(x)
-x = Dense(1024, activation='relu')(x)
-x = Dense(512, activation='relu')(x)
-x = Dense(512, activation='relu')(x)
-x = Dense(512, activation='relu')(x)
 main_output = Dense(nOutputDim, activation='sigmoid', name='output')(x)
 model = Model(inputs=main_input, outputs=main_output)
 model.summary()
 
 ''' set epoch and batch size '''
-EPOCH = 6
+EPOCH = 100
 BATCH_SIZE = 200
 
 ''' set model compile method '''
@@ -132,6 +127,6 @@ history = model.fit(X_train, y_train,
 
 ''' convert h5 to onnx '''
 transformToOnnx(model_name_list)
-quantize_onnx_model_list(model_name_list)
+# quantize_onnx_model_list(model_name_list) # 양자화하면 성능이 쓰레기.. 
 
 clean()
