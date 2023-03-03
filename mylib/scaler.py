@@ -112,5 +112,9 @@ class ModelTester:
 
         else :
             raise Exception()
-
-
+        
+    def setFullScale(self, X, sModelName):
+        self.setNpData(X)
+        self.matchOldScaler(sModelName)
+        self.fitScale()
+        return self.np_data
