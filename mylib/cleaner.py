@@ -2,7 +2,8 @@ import os.path
 import os
 from mylib.modelpostfix import *
 from mylib.ftploader import *
-        
+from mylib.server_info import *
+
 def removeTestData(h5_list:list=None, onnx_list:list=None):
     if h5_list is not None:
         for filename in h5_list:
@@ -14,7 +15,7 @@ def removeTestData(h5_list:list=None, onnx_list:list=None):
 
 def cleanOnnx(ftp=None):
     if ftp is None:
-        ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
+        ftp= FtpLoader(ftp_ip, ftp_port, ftp_id, ftp_pw)
     onnx_dir = os.listdir(onnx_path)
 
     for filename in onnx_dir:
@@ -25,7 +26,7 @@ def cleanOnnx(ftp=None):
 
 def cleanH5(ftp=None):
     if ftp is None:
-        ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
+        ftp= FtpLoader(ftp_ip, ftp_port, ftp_id, ftp_pw)
         
     h5_dir = os.listdir(h5_path)
     for filename in h5_dir:
@@ -35,6 +36,6 @@ def cleanH5(ftp=None):
         os.remove(h5_path + filename)
 
 def cleanAll():
-    ftp= FtpLoader("221.149.119.60", 2021, "ftp_user", "jin9409")
+    ftp= FtpLoader(ftp_ip, ftp_port, ftp_id, ftp_pw)
     cleanH5(ftp)
     cleanOnnx(ftp)

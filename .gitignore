@@ -1,3 +1,4 @@
 *.h5
 *.onnx
 
+mylib/server_info.py
