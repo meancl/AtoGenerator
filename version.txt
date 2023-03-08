@@ -13,6 +13,7 @@ backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifact
 beautifulsoup4 @ file:///home/conda/feedstock_root/build_artifacts/beautifulsoup4_1675252249248/work
 bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1674535352125/work
 cachetools==5.3.0
+catboost==1.1.1
 certifi==2022.12.7
 cffi @ file:///D:/bld/cffi_1656782940775/work
 charset-normalizer==3.0.1
@@ -43,6 +44,8 @@ grpcio==1.51.3
 h5py==3.8.0
 humanfriendly==10.0
 idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1663625384323/work
+imbalanced-learn==0.10.1
+imblearn==0.0
 importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1672612343532/work
 importlib-resources @ file:///home/conda/feedstock_root/build_artifacts/importlib_resources_1676919000169/work
 ipykernel @ file:///D:/bld/ipykernel_1655369313836/work
@@ -99,6 +102,7 @@ pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602
 Pillow==9.4.0
 pkgutil_resolve_name @ file:///home/conda/feedstock_root/build_artifacts/pkgutil-resolve-name_1633981968097/work
 platformdirs @ file:///home/conda/feedstock_root/build_artifacts/platformdirs_1675735718929/work
+plotly==5.13.1
 prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1674535637125/work
 prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1677600924538/work
 protobuf==3.20.3
@@ -140,6 +144,7 @@ soupsieve @ file:///home/conda/feedstock_root/build_artifacts/soupsieve_16582075
 SQLAlchemy==1.4.7
 stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1669632077133/work
 sympy==1.11.1
+tenacity==8.2.2
 tensorboard==2.9.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
@@ -175,5 +180,6 @@ Werkzeug==2.2.3
 widgetsnbextension @ file:///home/conda/feedstock_root/build_artifacts/widgetsnbextension_1672066693230/work
 wincertstore==0.2
 wrapt==1.14.1
+xgboost==1.7.4
 yarl==1.8.2
 zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1677313463193/work
