@@ -1,0 +1,1 @@
+사용할 라이브러리를 anaconda3/envs/특정환경/Lib/site-packages/ 밑에 두세요.
