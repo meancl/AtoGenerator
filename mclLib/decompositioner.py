@@ -10,7 +10,7 @@ from mclLib.ftploader import *
 
 def decomposite(n, x_set, x_set2=None, onnx_model_name=None):
     pca = PCA(n_components=n)
-    x_len = x_set.shape[0]
+    x_len = x_set.shape[1]
     pca_model = pca.fit(x_set)
     x1_pca = pca_model.transform(x_set)
     x2_pca = None
