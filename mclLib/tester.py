@@ -12,6 +12,9 @@ def testClassification(y_test, y_pred_list, suc_crit=1.0, fail_crit=0.0, suc_pas
 
     len_y = y_test.shape[0]
 
+    true_pred_list = []
+    false_pred_list = []
+
     try:
         for i in range(len_y):
 
@@ -32,6 +35,9 @@ def testClassification(y_test, y_pred_list, suc_crit=1.0, fail_crit=0.0, suc_pas
             # 0 예상이 fail_pass_ratio 율만큼 측정됐다면
             if pass_0_check >= fail_line:
                 pass_0 = True
+                false_pred_list.append(0)
+            else:
+                false_pred_list.append(1)
             
             # 0이라 예측했는데 
             if pass_0: 
@@ -51,6 +57,9 @@ def testClassification(y_test, y_pred_list, suc_crit=1.0, fail_crit=0.0, suc_pas
             # 1 예상이 suc_pass_ratio 율만큼 측정됐다면
             if pass_1_check >= suc_line:
                 pass_1 = True
+                true_pred_list.append(1)
+            else:
+                true_pred_list.append(0)
                 
             # 1이라 예측했는데 
             if pass_1: 
@@ -78,3 +87,5 @@ def testClassification(y_test, y_pred_list, suc_crit=1.0, fail_crit=0.0, suc_pas
         print('정답비율 : ', (true_pred_true / (1 if true_pred_true+true_pred_false == 0 else true_pred_true+true_pred_false)) * 100, '(%)', end='\n\n')
     except Exception as ex:
         print('테스트 도중 예외 발생. ', ex)
+
+    return true_pred_list, false_pred_list

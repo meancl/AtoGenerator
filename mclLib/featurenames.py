@@ -1,3 +1,28 @@
+f_name_23 = [
+        'fHogaPerTrade',
+        'fHogaSpeedCur',
+        'fISlope',
+        'fMinusCnt07',
+        'fMinusCnt09',
+        'fOnlyUpPowerJar',
+        'fPlusCnt07',
+        'fPlusCnt09',
+        'fPower',
+        'fPowerJar',
+        'fPowerWithOutGap',
+        'fPureBuyCur',
+        'fRSlope',
+        'fSharePerTrade',
+        'fSpeedCur',
+        'fStartGap',
+        'fTradeCur',
+        'nCandleTwoOverRealCnt',
+        'nCandleTwoOverRealNoLeafCnt',
+        'nFakeResistCnt',
+        'nRqTime',
+        'nShootingCnt',
+        'nTotalTradeVolumeRanking'
+]
 
 f_name_102 = [   
         'nBuyStrategyIdx',
