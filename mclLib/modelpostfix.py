@@ -1,4 +1,4 @@
-project_absolute_path = r'C:/Users/MJ/source/repos/MJTradier_AI/임시저장소'
+project_absolute_path = r'C:/Users/MJ/source/repos/AtoGenerator/임시저장소'
 
 just_h5 = '/h5/'
 just_onnx = '/onnx/'

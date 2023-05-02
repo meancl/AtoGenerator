@@ -1,4 +1,4 @@
-chart_absolute_path = r'C:/Users/MJ/source/repos/MJTradier_AI/임시저장소/chart'
+chart_absolute_path = r'C:/Users/MJ/source/repos/AtoGenerator/임시저장소/chart'
 
 just_Every1min = '/Every1min/'
 just_AfterBuy10sec = '/AfterBuy10sec/'
