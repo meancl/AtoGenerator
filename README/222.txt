@@ -1,5 +1,3 @@
-[python==3.10.9]
-
 absl-py==1.4.0
 aiohttp==3.8.4
 aiosignal==1.3.1
@@ -158,13 +156,8 @@ tensorflow-model-optimization==0.7.3
 tensorflow-probability==0.17.0
 termcolor==2.2.0
 terminado @ file:///D:/bld/terminado_1652790796353/work
-tf2onnx==1.13.0
-tflite==2.10.0
-tflite2onnx==0.4.1
 threadpoolctl==3.1.0
 tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1666100256010/work
-torch==1.13.1
-torchvision==0.14.1
 tornado @ file:///D:/bld/tornado_1656937966227/work
 tqdm==4.64.1
 traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1675110562325/work
@@ -187,22 +180,3 @@ yarl==1.8.2
 zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1677313463193/work
 ray==2.3.0
 
-
----------------------------------------------
-인스톨 순서
----------------------------------------------
-1. pip install tensorflow==2.9.0
-2. pip install sqlalchemy==1.4.7
-3. pip install mysqlclient==2.1.1
-4. pip install pandas
-5. pip install onnx==1.13.1
-6. pip install scikit-learn==1.2.1
-7. pip install onnxruntime==1.12.0
-8. pip install ligthgbm
-9. pip install xgboost
-10. pip install catboost
-11. pip install ray[tune]
-12. pip install shap
-13. pip install seaborn
-14. pip install imblearn
-15. pip install skl2onnx

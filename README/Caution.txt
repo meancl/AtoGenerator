@@ -1,2 +1,0 @@
-# svm에서 robust scaling을 사용하면 모델이 예측을 못함.
-# rf regressor는 onnx 변환을 할때 input을 double로 하면 오류가 생김. float은 문제가 안 생김.

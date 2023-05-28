@@ -1,0 +1,24 @@
+# svm에서 robust scaling을 사용하면 모델이 예측을 못함.
+# rf regressor는 onnx 변환을 할때 input을 double로 하면 오류가 생김. float은 문제가 안 생김.
+
+
+[python == 3.10.11]
+---------------------------------------------
+인스톨 순서
+---------------------------------------------
+1. pip install tensorflow==2.9.0
+2. pip install sqlalchemy==1.4.7
+3. pip install mysqlclient==2.1.1
+4. pip install pandas
+5. pip install onnx==1.13.1
+6. pip install scikit-learn==1.2.1
+7. pip install onnxruntime==1.12.0
+8. pip install ligthgbm
+9. pip install xgboost
+10. pip install catboost
+11. pip install ray[tune]
+12. pip install shap
+13. pip install seaborn
+14. pip install imblearn
+15. pip install skl2onnx
+16. pip install onnxmltools
